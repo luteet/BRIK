@@ -10,23 +10,36 @@ function slideFunc(elem) {
     if(checkSlide == false) {
         checkSlide = true;
 
-        let listItem = document.querySelectorAll('.services__block--item');
+        let listItem = document.querySelectorAll('.services__block--item'),
+            parent = elem.parentNode,
+            parentCheck = parent.classList.contains('_active');
 
-        listItem.forEach(element => {
+
+        if(parentCheck) {
+            elem.parentNode.classList.remove('_active')
+        } else {
+            listItem.forEach(element => {
             
-            if(element.classList.contains('_active')) {
-                element.classList.remove('_active');
-                slideUp(element.querySelector('.services__block--item-list'), 500);
-            }
-        });
+                if(element.classList.contains('_active')) {
+                    element.classList.remove('_active');
+                    slideUp(element.querySelector('.services__block--item-list'), 500);
+                }
+            });
+        }
 
+        
         slideToggle(elem.parentNode.querySelector('.services__block--item-list'), 500);
 
         setTimeout(function() {
             checkSlide = false;
         },500)
 
-        elem.parentNode.classList.add('_active')
+        if(parentCheck) {
+            elem.parentNode.classList.remove('_active')
+        } else {
+            elem.parentNode.classList.add('_active')
+        }
+        
     }
 
 }
@@ -39,9 +52,7 @@ body.addEventListener('click', function (e) {
     if(e.target.classList.contains('services__block--item-title') || e.target.parentNode.classList.contains('services__block--item')) {
         if(e.target.parentNode.classList.contains('services__block--item') && window.innerWidth < 992) {
             let parent = e.target.parentNode;
-            if(!parent.classList.contains('_active')) {
-                slideFunc(e.target);
-            }
+            slideFunc(e.target);
         }
         /* if(e.target.parentNode.classList.contains('services__block--item') && e.target.parentNode.classList.contains('_active')) {
             slideFunc(e.target);
@@ -109,7 +120,7 @@ function resize() {
             },
             
         })
-        
+
     } else if(windowSize >= 992 && mobSliderCheck) {
         mobSliderCheck = false;
         achievementsSlider.destroy(true, true);
