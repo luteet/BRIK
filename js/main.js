@@ -1,20 +1,10 @@
-/* $(function() {
 
-    
 
-}); */
+const body = document.querySelector('body');
 
-/* document.querySelector('.header__video').addEventListener('ended', function() {
-    console.log('end');
-}); */
 
-const body = document.querySelector('body'),
-    html = document.querySelector('html'),
-    menu = document.querySelectorAll('.burger, .header__nav, body'),
-    burger = document.querySelector('.burger'),
-    header = document.querySelector('.header');
-
-    let checkSlide = false;
+// Выпадающий список
+let checkSlide = false;
 function slideFunc(elem) {
 
     if(checkSlide == false) {
@@ -41,14 +31,11 @@ function slideFunc(elem) {
 
 }
 
+
+
 body.addEventListener('click', function (e) {
 
-    // Меню в шапке
-    if (e.target.classList.contains('burger') || e.target.parentNode.classList.contains('burger')) {
-        menu.forEach(elem => {
-            elem.classList.toggle('_active')
-        })
-    }
+    // Запуск выпадающого списка
     if(e.target.classList.contains('services__block--item-title') || e.target.parentNode.classList.contains('services__block--item')) {
         if(e.target.parentNode.classList.contains('services__block--item') && window.innerWidth < 992) {
             let parent = e.target.parentNode;
@@ -60,6 +47,28 @@ body.addEventListener('click', function (e) {
             slideFunc(e.target);
         } */
         
+    }
+    
+    // Запуск скролла к секциям
+    if(e.target.classList.contains('_btn-to-scroll') || e.target.closest('._btn-to-scroll')) {
+        
+        let section = document.querySelector(e.target.getAttribute('href'));
+
+        if(e.target.closest('._btn-to-scroll')) {
+            section = document.querySelector(e.target.closest('._btn-to-scroll').getAttribute('href'));
+        }
+        
+        
+        if(section) {
+            e.preventDefault();
+            window.scroll({
+                left: 0, 
+                top: section.offsetTop, 
+                behavior: 'smooth'
+            })
+            
+        }
+    
     }
 
 })
@@ -87,7 +96,6 @@ function resize() {
         })
         clientsSlider = new Swiper('.clients__slider', {
     
-            //loop: true,
             slidesPerView: 3,
             spaceBetween: 10,
 
@@ -101,7 +109,7 @@ function resize() {
             },
             
         })
-        //mobSlider(true);
+        
     } else if(windowSize >= 992 && mobSliderCheck) {
         mobSliderCheck = false;
         achievementsSlider.destroy(true, true);
