@@ -2202,16 +2202,19 @@ body._popup-active {
   }
 
   .header__bg {
-    top: 0;
-    height: 100%;
+    top: 50%;
+    height: 70%;
+    -webkit-transform: translate(0, -60%);
+        -ms-transform: translate(0, -60%);
+            transform: translate(0, -60%);
   }
 
   .header__logo {
-    padding: 56px 0 55px 0;
+    padding: 40px 0 55px 0;
   }
 
   .header__title {
-    padding-bottom: 55px;
+    padding-bottom: 51px;
   }
 
   .header__scroll-link {
