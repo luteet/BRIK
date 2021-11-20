@@ -11,39 +11,11 @@
 
     <header class="header">
         <div class="header__bg-video _active">
-            <video width="500" autoplay muted class="header__video" id="header__video">
+            <video width="400" autoplay muted class="header__video" id="header__video">
                 <source src="video/video.mp4" type="video/mp4">
                 <source src="video/video.webm" type="video/webm">
             </video>
-            <script type='text/javascript'>
-                let videoBg = document.querySelector('.header__bg-video'),
-                    video = document.querySelector('.header__video'),
-                    source = video.querySelectorAll('source');
-
-                let errorCount = 0;
-                source.forEach(element => {
-                    element.addEventListener('error', function() {
-                        errorCount++;
-                        if(source.length == errorCount) {
-                    
-                            videoBg.classList.remove('_active');
-                        }
-                    });
-                })
-
-                video.addEventListener('ended',function() {
-                    videoBg.style.opacity = '0';
-                    videoBg.style.visibility = 'hidden';
-                    
-                });
-
-                videoBg.addEventListener('click',function() {
-                    videoBg.style.opacity = '0';
-                    videoBg.style.visibility = 'hidden';
-                    
-                });
-
-            </script>
+            <script src="js/header-video.js"></script>
         </div>
         <div class="header__bg">
             <img src="img/header/bg.svg" loading="lazy" width="0" alt="" class="header__bg--img _bg-img">
