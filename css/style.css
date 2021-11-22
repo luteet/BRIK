@@ -1816,6 +1816,7 @@ body._popup-active {
       -ms-flex-align: center;
           align-items: center;
   max-width: 100%;
+  padding-top: 20px;
 }
 
 .achievements__slide--logo-img {
@@ -2349,6 +2350,10 @@ body._popup-active {
     border-right: 0;
   }
 
+  .achievements__slide--logo {
+    padding-top: 0px;
+  }
+
   .achievements__slide--text {
     padding: 15px 0 0 0;
   }
@@ -2410,13 +2415,6 @@ body._popup-active {
 
   .services__block--item-title::before {
     display: none;
-  }
-
-  .services__block {
-    /* &--left {
-                flex: 0 1 33.333%;
-    
-            } */
   }
 
   .services__block--left {
