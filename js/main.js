@@ -1,22 +1,21 @@
 
-
 const body = document.querySelector('body');
 
 
-// Выпадающий список
+// =-=-=-=-=-=-=-=-=-=-=-=- Выпадающий список { -=-=-=-=-=-=-=-=-=-=-=-=
 let checkSlide = false;
-function slideFunc(elem) {
+function slideFunc(thisElem) {
 
-    if(checkSlide == false) {
+    if(checkSlide == false && window.innerWidth < 992) {
         checkSlide = true;
 
         let listItem = document.querySelectorAll('.services__block--item'),
-            parent = elem.parentNode,
+            parent = thisElem.parentNode,
             parentCheck = parent.classList.contains('_active');
 
 
         if(parentCheck) {
-            elem.parentNode.classList.remove('_active')
+            thisElem.parentNode.classList.remove('_active')
         } else {
             listItem.forEach(element => {
             
@@ -28,39 +27,41 @@ function slideFunc(elem) {
         }
 
         
-        slideToggle(elem.parentNode.querySelector('.services__block--item-list'), 500);
+        slideToggle(thisElem.parentNode.querySelector('.services__block--item-list'), 500);
 
         setTimeout(function() {
             checkSlide = false;
         },500)
 
         if(parentCheck) {
-            elem.parentNode.classList.remove('_active')
+            thisElem.parentNode.classList.remove('_active')
         } else {
-            elem.parentNode.classList.add('_active')
+            thisElem.parentNode.classList.add('_active')
         }
         
     }
 
 }
+// =-=-=-=-=-=-=-=-=-=-=-=- } Выпадающий список -=-=-=-=-=-=-=-=-=-=-=-=
 
 
 
 body.addEventListener('click', function (e) {
 
-    // Запуск выпадающого списка
-    if(e.target.classList.contains('services__block--item-title') || e.target.parentNode.classList.contains('services__block--item')) {
-        if(e.target.parentNode.classList.contains('services__block--item') && window.innerWidth < 992) {
-            let parent = e.target.parentNode;
+    // =-=-=-=-=-=-=-=-=-=-=-=- Запуск выпадающого списка { -=-=-=-=-=-=-=-=-=-=-=-=
+    if(e.target.classList.contains('services__block--item-title') || e.target.closest('.services__block--item-title')) {
+        if(e.target.closest('.services__block--item-title')) {
+            let parent = e.target.closest('.services__block--item-title');
+            slideFunc(parent);
+        } else {
             slideFunc(e.target);
         }
-        /* if(e.target.parentNode.classList.contains('services__block--item') && e.target.parentNode.classList.contains('_active')) {
-            slideFunc(e.target);
-        } */
-        
     }
+    // =-=-=-=-=-=-=-=-=-=-=-=- } Запуск выпадающого списка -=-=-=-=-=-=-=-=-=-=-=-=
     
-    // Запуск скролла к секциям
+
+
+    // =-=-=-=-=-=-=-=-=-=-=-=- Запуск скролла к секциям { -=-=-=-=-=-=-=-=-=-=-=-=
     if(e.target.classList.contains('_btn-to-scroll') || e.target.closest('._btn-to-scroll')) {
         
         let section = document.querySelector(e.target.getAttribute('href'));
@@ -81,6 +82,9 @@ body.addEventListener('click', function (e) {
         }
     
     }
+    // =-=-=-=-=-=-=-=-=-=-=-=- } Запуск скролла к секциям -=-=-=-=-=-=-=-=-=-=-=-=
+
+
 
 })
 
@@ -92,7 +96,7 @@ let achievementsSlider, mobSliderCheck = false,
 function resize() {
     let windowSize = window.innerWidth;
 
-    if(windowSize <= 992 && !mobSliderCheck) {
+    if(windowSize <= 992 && !mobSliderCheck) { // Включение слайдеров при мобильном экране
         mobSliderCheck = true;
         achievementsSlider = new Swiper('.achievements__slider', {
     
@@ -121,7 +125,7 @@ function resize() {
             
         })
 
-    } else if(windowSize >= 992 && mobSliderCheck) {
+    } else if(windowSize >= 992 && mobSliderCheck) { // Отключение слайдеров при десктопном экране
         mobSliderCheck = false;
         achievementsSlider.destroy(true, true);
         clientsSlider.destroy(true, true)
